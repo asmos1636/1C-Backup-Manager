@@ -38,8 +38,8 @@ Name: "desktopicon"; Description: "Создать ярлык на рабочем
 
 [Run]
 Filename: "{sys}\\sc.exe"; Parameters: "create ""1CBackupManagerWorker"" binPath= ""{app}\\Worker\\OneCBackupManager.Worker.exe"" start= auto DisplayName= ""1C Backup Manager Worker"""; Flags: runhidden waituntilterminated
-Filename: "{sys}\\sc.exe"; Parameters: "start \"1CBackupManagerWorker\""; Flags: runhidden waituntilterminated; StatusMsg: "Запуск фоновой службы..."; Check: not WizardSilent
+Filename: "{sys}\\sc.exe"; Parameters: "start ""1CBackupManagerWorker"""; Flags: runhidden waituntilterminated; StatusMsg: "Запуск фоновой службы..."; Check: not WizardSilent
 
 [UninstallRun]
-Filename: "{sys}\\sc.exe"; Parameters: "stop \"1CBackupManagerWorker\""; Flags: runhidden waituntilterminated
-Filename: "{sys}\\sc.exe"; Parameters: "delete \"1CBackupManagerWorker\""; Flags: runhidden waituntilterminated
+Filename: "{sys}\\sc.exe"; Parameters: "stop ""1CBackupManagerWorker"""; Flags: runhidden waituntilterminated
+Filename: "{sys}\\sc.exe"; Parameters: "delete ""1CBackupManagerWorker"""; Flags: runhidden waituntilterminated
