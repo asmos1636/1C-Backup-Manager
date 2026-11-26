@@ -1,7 +1,7 @@
 <Window x:Class="OneCBackupManager.UI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="1C Backup Manager" Height="620" Width="980" MinHeight="520" MinWidth="820"
+        Title="1C Backup Manager" Height="650" Width="1000" MinHeight="540" MinWidth="850"
         WindowStartupLocation="CenterScreen" Background="#F3F5F8">
   <Grid>
     <Grid.ColumnDefinitions><ColumnDefinition Width="220"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
@@ -9,32 +9,35 @@
       <StackPanel Margin="20">
         <TextBlock Text="1C Backup Manager" Foreground="White" FontSize="21" FontWeight="SemiBold" Margin="0,12,0,30"/>
         <Button Content="Обзор" Height="42" HorizontalContentAlignment="Left" Padding="12,0" Margin="0,0,0,8"/>
-        <Button Content="Серверы 1С" Height="42" HorizontalContentAlignment="Left" Padding="12,0" Margin="0,0,0,8"/>
-        <Button Content="Информационные базы" Height="42" HorizontalContentAlignment="Left" Padding="12,0" Margin="0,0,0,8"/>
-        <Button Content="Хранилища" Height="42" HorizontalContentAlignment="Left" Padding="12,0" Margin="0,0,0,8"/>
-        <Button Content="Расписание" Height="42" HorizontalContentAlignment="Left" Padding="12,0" Margin="0,0,0,8"/>
+        <Button x:Name="AddServerButton" Content="Добавить сервер 1С" Height="42" HorizontalContentAlignment="Left" Padding="12,0" Margin="0,0,0,8" Click="AddServerButton_Click"/>
+        <Button Content="Информационные базы" Height="42" HorizontalContentAlignment="Left" Padding="12,0" Margin="0,0,0,8" IsEnabled="False"/>
+        <Button Content="Хранилища" Height="42" HorizontalContentAlignment="Left" Padding="12,0" Margin="0,0,0,8" IsEnabled="False"/>
+        <Button Content="Расписание" Height="42" HorizontalContentAlignment="Left" Padding="12,0" Margin="0,0,0,8" IsEnabled="False"/>
         <Button Content="Журнал" Height="42" HorizontalContentAlignment="Left" Padding="12,0" Margin="0,0,0,8"/>
-        <TextBlock Text="Версия 0.1.0" Foreground="#AFC1D8" Margin="0,32,0,0"/>
+        <TextBlock Text="Версия 0.2.0" Foreground="#AFC1D8" Margin="0,32,0,0"/>
       </StackPanel>
     </Border>
     <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
       <StackPanel Margin="30">
-        <TextBlock Text="Обзор" FontSize="28" FontWeight="SemiBold" Foreground="#1D2A3A"/>
-        <TextBlock Text="Состояние системы резервного копирования" Foreground="#64748B" Margin="0,6,0,24"/>
+        <TextBlock Text="Подключение к серверам" FontSize="28" FontWeight="SemiBold" Foreground="#1D2A3A"/>
+        <TextBlock Text="Добавляй Linux-серверы 1С и проверяй SSH-доступ." Foreground="#64748B" Margin="0,6,0,24"/>
         <Border Background="White" CornerRadius="8" Padding="20" Margin="0,0,0,16">
           <StackPanel>
-            <TextBlock Text="Фоновая служба" FontSize="17" FontWeight="SemiBold"/>
-            <TextBlock x:Name="ServiceStatusText" Text="Проверка состояния службы будет добавлена в следующей версии" TextWrapping="Wrap" Foreground="#64748B" Margin="0,10,0,0"/>
+            <DockPanel>
+              <TextBlock Text="Серверы 1С" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center"/>
+              <Button Content="Добавить сервер" DockPanel.Dock="Right" Padding="14,7" Click="AddServerButton_Click"/>
+            </DockPanel>
+            <TextBlock x:Name="ServerListText" Text="Серверы пока не добавлены." TextWrapping="Wrap" Foreground="#64748B" Margin="0,14,0,0"/>
           </StackPanel>
         </Border>
         <Border Background="White" CornerRadius="8" Padding="20" Margin="0,0,0,16">
           <StackPanel>
-            <TextBlock Text="Резервное копирование" FontSize="17" FontWeight="SemiBold"/>
-            <TextBlock Text="Пока нет настроенных заданий. Подключение к серверу 1С и создание заданий появятся в следующих обновлениях." TextWrapping="Wrap" Foreground="#64748B" Margin="0,10,0,0"/>
+            <TextBlock Text="Следующий этап" FontSize="17" FontWeight="SemiBold"/>
+            <TextBlock Text="После проверки SSH добавим обнаружение кластера 1С, службы ragent и информационных баз. На этом этапе резервные копии ещё не создаются." TextWrapping="Wrap" Foreground="#64748B" Margin="0,10,0,0"/>
           </StackPanel>
         </Border>
         <Border Background="#FFF7E6" CornerRadius="8" Padding="16">
-          <TextBlock Text="Важно: версия 0.1.0 — установочная основа. Не используйте её как средство создания резервных копий рабочих баз." TextWrapping="Wrap" Foreground="#805B16"/>
+          <TextBlock Text="Внимание: версия 0.2.0 предназначена для настройки и проверки SSH-подключения. Не используйте её для резервного копирования рабочих баз." TextWrapping="Wrap" Foreground="#805B16"/>
         </Border>
       </StackPanel>
     </ScrollViewer>
