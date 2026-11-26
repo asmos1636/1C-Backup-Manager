@@ -1,0 +1,52 @@
+name: Build Windows installer
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  DOTNET_VERSION: '10.0.x'
+
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Install Inno Setup
+        shell: powershell
+        run: choco install innosetup --yes --no-progress
+
+      - name: Publish WPF application
+        run: dotnet publish src/OneCBackupManager.UI/OneCBackupManager.UI.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o artifacts/ui
+
+      - name: Publish Windows worker
+        run: dotnet publish src/OneCBackupManager.Worker/OneCBackupManager.Worker.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o artifacts/worker
+
+      - name: Build installer
+        shell: powershell
+        run: '& "C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe" installer/1CBackupManager.iss'
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: 1C-Backup-Manager-Setup-x64
+          path: artifacts/installer/*.exe
+          if-no-files-found: error
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/installer/*.exe
