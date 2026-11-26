@@ -37,7 +37,7 @@ Name: "{autodesktop}\\1C Backup Manager"; Filename: "{app}\\UI\\OneCBackupManage
 Name: "desktopicon"; Description: "Создать ярлык на рабочем столе"; GroupDescription: "Дополнительные значки:"; Flags: unchecked
 
 [Run]
-Filename: "{sys}\\sc.exe"; Parameters: "create \"1CBackupManagerWorker\" binPath= \"\"{app}\\Worker\\OneCBackupManager.Worker.exe\"\" start= auto DisplayName= \"1C Backup Manager Worker\""; Flags: runhidden waituntilterminated
+Filename: "{sys}\\sc.exe"; Parameters: "create ""1CBackupManagerWorker"" binPath= ""{app}\\Worker\\OneCBackupManager.Worker.exe"" start= auto DisplayName= ""1C Backup Manager Worker"""; Flags: runhidden waituntilterminated
 Filename: "{sys}\\sc.exe"; Parameters: "start \"1CBackupManagerWorker\""; Flags: runhidden waituntilterminated; StatusMsg: "Запуск фоновой службы..."; Check: not WizardSilent
 
 [UninstallRun]
